@@ -13,8 +13,8 @@ impl FromStr for Parsed {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let (a, b) = s.split_once(' ').ok_or_else(|| eyre!("Invalid input"))?;
         Ok(Self(
-            *a.as_bytes().first().unwrap(),
-            *b.as_bytes().first().unwrap(),
+            *a.as_bytes().first().ok_or(eyre!("Invalid input"))?,
+            *b.as_bytes().first().ok_or(eyre!("Invalid input"))?,
         ))
     }
 }
@@ -102,7 +102,7 @@ impl TryFrom<ParsedPart2> for RockPaperScissorsGame {
                 let game = Self { other, me: **v };
                 game.my_result() == result
             })
-            .unwrap();
+            .ok_or(eyre!("Invalid input"))?;
 
         Ok(Self { other, me: *me })
     }
@@ -131,14 +131,15 @@ fn run() -> Result<(i32, i32), Report> {
     let input = include_str!("input.txt");
     let part1 = input
         .lines()
-        .map(|line| line.parse::<Parsed>().unwrap())
-        .map(|parsed| RockPaperScissorsGame::try_from(parsed).unwrap())
+        .filter_map(|line| line.parse::<Parsed>().ok())
+        .filter_map(|parsed| RockPaperScissorsGame::try_from(parsed).ok())
         .map(|game| Scored::from(game).0)
         .sum();
     let part2 = input
         .lines()
-        .map(|line| ParsedPart2(line.parse::<Parsed>().unwrap()))
-        .map(|parsed| RockPaperScissorsGame::try_from(parsed).unwrap())
+        .filter_map(|line| line.parse::<Parsed>().ok())
+        .map(ParsedPart2)
+        .filter_map(|parsed| RockPaperScissorsGame::try_from(parsed).ok())
         .map(|game| Scored::from(game).0)
         .sum();
     Ok((part1, part2))
