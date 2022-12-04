@@ -1,7 +1,7 @@
 use color_eyre::Report;
 use std::cmp::Reverse;
 
-fn main() -> Result<(), Report> {
+fn run() -> Result<(i32, i32), Report> {
     let lines = include_str!("input.txt").lines();
     let mut elf = 0;
     let mut elves = vec![];
@@ -16,7 +16,18 @@ fn main() -> Result<(), Report> {
     }
     elves.push(elf);
     elves.sort_by_key(|&e| Reverse(e));
-    println!("Part 1: {:1}", elves[0]);
-    println!("Part 2: {:?}", elves[0..=2].iter().sum::<i32>());
+    Ok((elves[0], elves[0..=2].iter().sum()))
+}
+
+fn main() -> Result<(), Report> {
+    let (part1, part2) = run()?;
+    println!("Part 1: {:1}", part1);
+    println!("Part 2: {:?}", part2);
+    Ok(())
+}
+
+#[test]
+fn test() -> Result<(), Report> {
+    insta::assert_debug_snapshot!(run()?);
     Ok(())
 }
