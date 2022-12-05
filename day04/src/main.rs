@@ -40,7 +40,7 @@ fn part1(input: &str) -> u32 {
 }
 
 // Write a function "part2" which takes a string input and returns a u32.
-// Split the input into lines and run parse_line and full_overlaps on each line.
+// Split the input into lines and run parse_line and any_overlaps on each line.
 // If true add to the result.
 fn part2(input: &str) -> u32 {
     input
