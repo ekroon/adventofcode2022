@@ -2,18 +2,14 @@ use std::collections::HashSet;
 
 fn find_network_start_marker(input: &str, n: usize) -> usize {
     // loop over the input string, n characters at a time, count the number of different characters
-    // in the substring, and return the current index + n into the string.
+    // in the substring, and return the current index + n into the string if the number of
+    // different characters is n.
     input
         .chars()
         .collect::<Vec<char>>()
         .windows(n)
         .enumerate()
-        .find(|(_, window)| {
-            window
-                .iter()
-                .collect::<HashSet<&char>>()
-                .len() == window.len()
-        })
+        .find(|(_, window)| window.iter().collect::<HashSet<_>>().len() == n)
         .map(|(i, _)| i + n)
         .unwrap()
 }
