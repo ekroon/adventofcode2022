@@ -1,0 +1,8 @@
+---
+source: day08/src/main.rs
+expression: "(part1, part2)"
+---
+(
+    1679,
+    536625,
+)

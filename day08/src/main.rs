@@ -162,4 +162,11 @@ mod tests {
     fn test_total2() {
         assert_eq!(solve2(parse(TEST_INPUT)), 8);
     }
+
+    #[test]
+    fn test_snapshot() {
+        let part1 = solve(parse(INPUT)).len();
+        let part2 = solve2(parse(INPUT));
+        insta::assert_debug_snapshot!((part1, part2));
+    }
 }
