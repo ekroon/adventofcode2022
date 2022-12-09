@@ -1,0 +1,8 @@
+---
+source: day09/src/main.rs
+expression: solve()
+---
+(
+    5874,
+    2467,
+)
