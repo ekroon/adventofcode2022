@@ -46,7 +46,8 @@ fn part1(input: &str, cycles: &[usize]) -> Vec<i64> {
 fn part2(input: &str) -> Vec<String> {
     let chars = cycle_values(input).fold(vec![], |mut v, (cycle, value)| {
         let column = ((cycle - 1) % 40) as i64;
-        if column >= (value - 1) && column <= (value + 1) {
+        let xx = (-1..1).contains(&0);
+        if ((value -1)..=(value +1)).contains(&column) {
             v.push('#')
         } else {
             v.push('.')
@@ -85,9 +86,9 @@ mod tests {
         part1(input, cycles).into_iter().sum()
     }
 
-    #[test_case(SAMPLE_INPUT)]
-    #[test_case(INPUT)]
-    fn test_part2(input: &str) {
-        insta::assert_debug_snapshot!(part2(input));
+    #[test_case(SAMPLE_INPUT, "sample" ; "sample")]
+    #[test_case(INPUT, "input" ; "input")]
+    fn test_part2(input: &str, name: &str) {
+        insta::assert_debug_snapshot!(name, part2(input));
     }
 }
