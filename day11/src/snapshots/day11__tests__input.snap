@@ -1,0 +1,8 @@
+---
+source: day11/src/main.rs
+expression: run(input)
+---
+(
+    56168,
+    14636993466,
+)
