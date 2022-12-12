@@ -1,0 +1,8 @@
+---
+source: day12/src/main.rs
+expression: solve(input)
+---
+(
+    31,
+    29,
+)
