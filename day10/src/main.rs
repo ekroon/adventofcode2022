@@ -46,7 +46,6 @@ fn part1(input: &str, cycles: &[usize]) -> Vec<i64> {
 fn part2(input: &str) -> Vec<String> {
     let chars = cycle_values(input).fold(vec![], |mut v, (cycle, value)| {
         let column = ((cycle - 1) % 40) as i64;
-        let xx = (-1..1).contains(&0);
         if ((value -1)..=(value +1)).contains(&column) {
             v.push('#')
         } else {
